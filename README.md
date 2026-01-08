@@ -1,5 +1,5 @@
 [![Build Repo Listing](https://github.com/fiaKaiera/vpm-listing/actions/workflows/build-listing.yml/badge.svg)](https://github.com/fiaKaiera/vpm-listing/actions/workflows/build-listing.yml)
-# @fiaKaiera's VPM Catalogue
+# fiaKaiera's VPM Catalogue
 A collection of VRChat assets made by fiaKaiera collected into one repository.
 
 > [!NOTE]
