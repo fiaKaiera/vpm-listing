@@ -16,10 +16,5 @@
     "githubRepos":[
         "fiaKaiera/vrc-doors"
     ],
-    "packages":[
-        {
-            "name":"net.fiakaiera.door",
-            "releases":[]
-        }
-    ]
+    "packages":[]
 }
