@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: DoorHandle
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 24ce62e939ccdc145835f0171aca7130,
+  serializedUdonProgramAsset: {fileID: 11400000, guid: fac04a382e2c2144a996e24fdf2e151b,
     type: 2}
   udonAssembly: 
   assemblyError: 
@@ -62,7 +62,7 @@ MonoBehaviour:
       Data: 3|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: FiaKaiera.Door.DoorBehaviour, Assembly-CSharp
+      Data: FiaKaiera.Door.DoorBehaviour, net.fiakaiera.door
     - Name: 
       Entry: 8
       Data: 

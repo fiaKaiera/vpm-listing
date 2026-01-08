@@ -12,8 +12,13 @@
         "url":"http://github.com/fiaKaiera/vpm-listing",
         "text":"View on GitHub"
     },
-    "bannerUrl":"banner.png",
-    "githubRepos":[
-        "fiaKaiera/vrc-doors"
+    "bannerUrl":"",
+    "packages":[
+        {
+            "name":"net.fiakaiera.door",
+            "releases":[
+                "https://github.com/vrchat-community/UdonSharp/releases/download/door-1.0.0/net.fiakaiera.door-1.0.0.zip"
+            ]
+        }
     ]
 }
