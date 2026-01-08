@@ -8,6 +8,7 @@ namespace FiaKaiera.Door
 {
     [AddComponentMenu("fiaKaiera/Door/Door Handle")]
     [UdonBehaviourSyncMode(BehaviourSyncMode.Continuous)]
+    [HelpURL("https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/README.md")]
     [RequireComponent(typeof(VRC_Pickup), typeof(Rigidbody))]
 
     public class DoorHandle : UdonSharpBehaviour

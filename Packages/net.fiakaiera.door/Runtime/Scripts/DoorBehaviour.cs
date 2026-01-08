@@ -9,6 +9,7 @@ namespace FiaKaiera.Door
 {
     [AddComponentMenu("")]
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
+    [HelpURL("https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/README.md")]
     public class DoorBehaviour : UdonSharpBehaviour
     {
         
@@ -46,7 +47,6 @@ namespace FiaKaiera.Door
         [SerializeField] float lowUpdateDistance = 30f;
         [Tooltip("Distance where the door does not update since it's too far.")]
         [SerializeField] float farUpdateDistance = 50f;
-        [Space]
         [Header("References")]
         [Tooltip("Transform that indicates the door's position.")]
         [SerializeField] protected Transform doorTransform;
@@ -606,6 +606,7 @@ namespace FiaKaiera.Door
 
         void _OnTickStart()
         {
+            if (GetCameraDistance() > farUpdateDistance) return;
             SoundSlidingSetVolume(IsLocked ? forcedSlidingSpeed : VOLUME_NEARLY_MUTE);
             SoundSlidingPlay();
         }

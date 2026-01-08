@@ -8,6 +8,7 @@ using VRC.Udon;
 namespace FiaKaiera.Door
 {
 	[AddComponentMenu("fiaKaiera/Door/Sliding Door")]
+	[HelpURL("https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/README.md")]
 	public class SlidingDoor : DoorBehaviour
 	{
 		const float SLIDING_VOLUME_MULTIPLIER = 100f;
