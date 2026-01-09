@@ -50,6 +50,19 @@ VRChat door system that acts semi-realisitically.
 <br>※ You can also copy them from the example scene found in `Packages\Real-ish Doors\Door` showing how the door works!
 3. Customize the door to your liking!
 
+## Attribution
+Simply put: It would be appreciated if you credit when you use this asset to fiaKaiera.
+<br>It can be in any form as long as it is clear and concise.
+
+**Example:**
+```
+Real-ish Doors by fiaKaiera
+https://github.com/fiaKaiera/vpm-listing
+```
+
+It's entirely optional but if you do, it will help spread the word and supports the growth of this asset within the VRChat community.
+
+---
 ## Details
 The door prefab contains a `DoorBehaviour` object inside it, depending on what door it is. (`SlidingDoor` / `HingeDoor`)
 - **Locked:** If enabled, the door is locked upon instance start.
@@ -154,8 +167,12 @@ The scene example shows it separate, but can be attached to the door if needed.
 - **Listeners:** 
   - `OnDoorKnock()` - Triggers when the door is knocked
 
-
 ---
+
+## Issues? Feature Requests?
+Best report them through the [Issues](https://github.com/fiaKaiera/vpm-listing/issues) tab.
+<br>If you are savvy enough, then you can try making a [pull request](https://github.com/fiaKaiera/vpm-listing/pulls) fixing the issue.
+
 ## Credits
 - Real-ish Doors by [fiaKaiera](https://github.com/fiaKaiera)
 - Exponential Decay Function: [acegikmo](https://acegikmo.com) (See how it works [here](https://youtu.be/LSNQuFEDOyQ))
@@ -164,7 +181,7 @@ The scene example shows it separate, but can be attached to the door if needed.
   - [Heavy Door Creaking_04.wav](https://freesound.org/people/rambler52/sounds/455319/) by rambler52
   - [Snowboard_Slide_Loop_Mono_01.wav](https://freesound.org/people/Nox_Sound/sounds/612665/) by Nox_Sound
   - [Wood door, internal, close hard](https://www.zapsplat.com/music/wood-door-internal-close-hard/) by Zapsplat
-  - [https://www.zapsplat.com/music/wood-door-internal-open-4/](https://www.zapsplat.com/music/wood-door-internal-open-4/) by Zapsplat
+  - [Wood door, internal, open 4](https://www.zapsplat.com/music/wood-door-internal-open-4/) by Zapsplat
   - [Back door unlock with key, version 1](https://www.zapsplat.com/music/back-door-unlock-with-key-version-1/) by Sonic SoundFX
   - [Front door lock](https://www.zapsplat.com/music/front-door-lock/) by Zapsplat
 - Icon: `material-symbols:door-open` from [Material Symbols](https://github.com/google/material-design-icons), fetched from [Icônes](https://icones.js.org/collection/material-symbols)
