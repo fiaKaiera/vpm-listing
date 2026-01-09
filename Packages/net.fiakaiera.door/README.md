@@ -4,12 +4,15 @@ by [fiaKaiera](https://github.com/fiaKaiera)
 ### <img src="https://vcc.docs.vrchat.com/images/favicon.ico" width=24> [Add to VCC / ALCOM](https://fiakaiera.github.io/vpm-listing)
 [ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.0/net.fiakaiera.door-1.1.0.unitypackage) ]
 [ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.0/net.fiakaiera.door-1.1.0.zip) ]
+<a href='https://ko-fi.com/fiaKaiera' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi1.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 VRChat door system that acts semi-realisitically.
 <br>These doors can be locked or forced open/closed using events.
 <br>Currently, only sliding doors exist.
 
 [ [Changelog](https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/CHANGELOG.md) ]
+
+<a href='https://ko-fi.com/fiaKaiera' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi1.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 ## Features
 - Sliding Doors, with variable distance

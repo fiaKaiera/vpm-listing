@@ -11,14 +11,16 @@ A collection of VRChat assets made by fiaKaiera collected into one repository.
 
 ---
 ### <img src="https://vcc.docs.vrchat.com/images/favicon.ico" width=24> [Add to VCC / ALCOM](https://fiakaiera.github.io/vpm-listing)
+<a href='https://ko-fi.com/fiaKaiera' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi1.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+
 ---
 
-- [**Real-ish Doors**](Packages/net.fiakaiera.door) v1.0.1 
+- [**Real-ish Doors**](Packages/net.fiakaiera.door) v1.1.0 
 <br>VRChat door system that acts semi-realisitically.
 <br>These doors can be locked or forced open/closed using events.
 <br>![](https://api.iconify.design/material-symbols-light:download-2-rounded.svg?color=%23aaa&height=24)
-[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.1/net.fiakaiera.door-1.0.1.unitypackage) ]
-[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.1/net.fiakaiera.door-1.0.1.zip) ]
+[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.0/net.fiakaiera.door-1.1.0.unitypackage) ]
+[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.0/net.fiakaiera.door-1.1.0.zip) ]
 
 - *maybe more coming soon...*
 
