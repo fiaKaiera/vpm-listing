@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: SlidingDoor
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 618d8affd1f32d64f8f4ec496b9e3c3c,
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 2d91ced727b3bc94eb332b6e49c446ad,
     type: 2}
   udonAssembly: 
   assemblyError: 
@@ -1459,7 +1459,7 @@ MonoBehaviour:
       Data: 95|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: FiaKaiera.Door.DoorHandle, net.fiakaiera.door
+      Data: FiaKaiera.Door.DoorHandle, FiaKaiera.Door
     - Name: 
       Entry: 8
       Data: 

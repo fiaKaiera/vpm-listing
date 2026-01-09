@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: DoorKnocker
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: ab7e8d5fa2705ee49bf486b31796bfd6,
+  serializedUdonProgramAsset: {fileID: 11400000, guid: e8b29970c9b6fe0479f8e379a8a91500,
     type: 2}
   udonAssembly: 
   assemblyError: 
