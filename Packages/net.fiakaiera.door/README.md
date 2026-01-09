@@ -9,7 +9,7 @@ VRChat door system that acts semi-realisitically.
 <br>These doors can be locked or forced open/closed using events.
 <br>Currently, only sliding doors exist.
 
-[ [Changelog](https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/CHANGELOG.md) ]
+[ [Changelog](https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/CHANGELOG.md) ] [ [How to Install?](https://github.com/fiaKaiera/vpm-listing/wiki#how-to-install) ]
 
 <a href='https://ko-fi.com/fiaKaiera' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi1.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
