@@ -27,3 +27,4 @@
 - All door objects now has its own icon
 - Merged duplicate code
 - Renamed assembly definition to match namespace
+- Added documentation links in package
