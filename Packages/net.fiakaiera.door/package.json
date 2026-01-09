@@ -3,15 +3,17 @@
   "displayName": "Real-ish Doors",
   "version": "1.1.0",
   "description": "VRChat door system that acts semi-realisitically.\nThese doors can be locked or forced open/closed using events.\nCurrently, only sliding doors exist.",
-  "gitDependencies": {},
   "vpmDependencies": {
-    "com.vrchat.worlds": "3.10.x"
+    "com.vrchat.worlds": "3.x"
   },
   "author": {
     "name": "fiaKaiera",
     "email": "kaiera@furria.net",
     "url": "https://github.com/fiaKaiera/vpm-listing"
   },
+  "changelogUrl": "https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/CHANGELOG.md",
+  "documentationUrl": "https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/README.md",
+  "licensesUrl": "https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/LICENSE.md",
   "legacyFolders": {},
   "legacyFiles": {},
   "localPath": "K:\\VRMedia\\VRC Stuff\\_Worlds\\[Kaiera] VPM Listing\\Packages\\net.fiakaiera.door",
