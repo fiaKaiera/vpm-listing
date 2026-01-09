@@ -13,6 +13,9 @@ VRChat door system that acts semi-realisitically.
 
 <a href='https://ko-fi.com/fiaKaiera' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi1.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
+> Unity > Package Manager > Add from git URL:
+> <br>`https://github.com/fiaKaiera/vpm-listing.git?path=/Packages/net.fiakaiera.door`
+
 ## Features
 - Sliding Doors, with variable distance
 - Slowly open/close the door when left on either state
