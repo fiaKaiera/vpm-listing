@@ -24,8 +24,24 @@ A collection of VRChat assets made by fiaKaiera collected into one repository.
 
 - *maybe more coming soon...*
 
+## Attribution
+Simply put: It would be appreciated if you credit when you use this asset to fiaKaiera.
+<br>It can be in any form as long as it is clear and concise.
+
+**Example:**
+```
+VPM Catalogue by fiaKaiera
+https://github.com/fiaKaiera/vpm-listing
+```
+
+It's entirely optional but if you do, it will help spread the word and supports the growth of this asset within the VRChat community.
+
 ## Technical Details
 The actual code for each package is found in the [Packages](Packages) folder.
 <br>This is due to the project being set up to contain all of the packages as one Unity project.
 
 Since each package is set up as one project, [source.json](https://github.com/fiaKaiera/vpm-listing/blob/main/source.json) will have to be manually updated for each new release.
+
+## Issues? Feature Requests?
+Best report them through the [Issues](https://github.com/fiaKaiera/vpm-listing/issues) tab.
+<br>If you are savvy enough, then you can try making a [pull request](https://github.com/fiaKaiera/vpm-listing/pulls) fixing the issue.
