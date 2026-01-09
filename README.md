@@ -9,6 +9,8 @@ A collection of VRChat assets made by fiaKaiera collected into one repository.
 > Alternatively, `*.unitypackages` are provided should you not use them.
 > <br>`*.zip` files are also provided but will have to be placed in its own folder in your Unity project's `Package` folder.
 
+[ [How to Install?](https://github.com/fiaKaiera/vpm-listing/wiki#how-to-install) ]
+
 ---
 ### <img src="https://vcc.docs.vrchat.com/images/favicon.ico" width=24> [Add to VCC / ALCOM](https://fiakaiera.github.io/vpm-listing)
 <a href='https://ko-fi.com/fiaKaiera' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi1.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
