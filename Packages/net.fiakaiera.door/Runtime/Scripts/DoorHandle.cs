@@ -7,12 +7,17 @@ using VRC.Udon;
 namespace FiaKaiera.Door
 {
     [AddComponentMenu("fiaKaiera/Door/Door Handle")]
-    [UdonBehaviourSyncMode(BehaviourSyncMode.Continuous)]
-    [HelpURL("https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/README.md")]
+    [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
+    [HelpURL("https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/README.md#door-handle")]
     [RequireComponent(typeof(VRC_Pickup), typeof(Rigidbody))]
-
+#if UNITY_2021_2_OR_NEWER && UNITY_EDITOR
+    [Icon(ICON_PATH)]
+#endif
     public class DoorHandle : UdonSharpBehaviour
     {
+#if UNITY_2021_2_OR_NEWER && UNITY_EDITOR
+        const string ICON_PATH = "Packages/net.fiakaiera.door/Runtime/Resources/MaterialSymbolsDoorOpen.png";
+#endif
         [System.NonSerialized] DoorBehaviour doorBehaviour;
         [System.NonSerialized] public VRC_Pickup pickup;
         [System.NonSerialized] public Rigidbody body;
@@ -73,7 +78,10 @@ namespace FiaKaiera.Door
             return isValid;
         }
 
-        void LogWarning(string message) => Debug.LogWarning($"[<color=#FFDD88>DoorHandle</color> {name}] {message}", this);
+        public override void OnPickupUseDown() => doorBehaviour._OnHandleUse(false);
+        public override void OnPickupUseUp() => doorBehaviour._OnHandleUse(true);
+
+        void LogWarning(string message) => Debug.LogWarning($"[<color=#DDAA11>DoorHandle</color> {name}] {message}", this);
 
     }
 }

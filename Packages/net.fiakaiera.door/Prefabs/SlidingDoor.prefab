@@ -147,7 +147,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
-  Spatialize: 0
+  Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
@@ -243,7 +243,7 @@ MonoBehaviour:
   Far: 80
   Near: 0
   VolumetricRadius: 0
-  EnableSpatialization: 0
+  EnableSpatialization: 1
   UseAudioSourceVolumeCurve: 0
 --- !u!1 &1864484691945535070
 GameObject:
@@ -615,8 +615,9 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 2635968003094817460}
-  _isLocked: 0
+  _locked: 0
   alwaysClose: 0
+  snappingDistance: 0.05
   forcedSlidingSpeed: 10
   slidingMinSpeed: 0.25
   sfxClosed: {fileID: 8300000, guid: 5d6beabcff716014db1fcb0505bf479e, type: 3}
@@ -628,11 +629,14 @@ MonoBehaviour:
   sfxSlidingMaxMoveVolume: 1
   lowUpdateDistance: 30
   farUpdateDistance: 50
+  listeners: []
+  sendGlobalHandleUseUp: 0
+  sendGlobalHandleUseDown: 0
   doorTransform: {fileID: 5170748272972801262}
-  doorHandle: {fileID: 7352009403318070761}
   colliderClosed: {fileID: 6739191525176475198}
   pointClosed: {fileID: 721074721638896840}
   pointOpened: {fileID: 8940959531422669452}
+  doorHandle: {fileID: 7352009403318070761}
   occlusionPortal: {fileID: 4597996797197319840}
   audioSource: {fileID: 3315713519630298728}
   slidingSource: {fileID: 2308218433553848439}
@@ -711,7 +715,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
+  Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
@@ -807,7 +811,7 @@ MonoBehaviour:
   Far: 80
   Near: 0
   VolumetricRadius: 0
-  EnableSpatialization: 0
+  EnableSpatialization: 1
   UseAudioSourceVolumeCurve: 0
 --- !u!1001 &2408084654588768417
 PrefabInstance:

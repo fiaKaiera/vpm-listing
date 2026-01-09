@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: DoorHandle
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: fac04a382e2c2144a996e24fdf2e151b,
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 24ce62e939ccdc145835f0171aca7130,
     type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: cb7701ebbaa7b50429baaf820a1c1daf, type: 3}
   scriptVersion: 2
   compiledVersion: 2
-  behaviourSyncMode: 3
+  behaviourSyncMode: 1
   hasInteractEvent: 0
   scriptID: -4467813755048320102
   serializationData:

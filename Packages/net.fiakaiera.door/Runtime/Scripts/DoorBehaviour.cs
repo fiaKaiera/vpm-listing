@@ -1,7 +1,9 @@
 ﻿
+using System;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.Rendering;
+using VRC.SDK3.UdonNetworkCalling;
 using VRC.SDKBase;
 using VRC.Udon;
 
@@ -9,28 +11,52 @@ namespace FiaKaiera.Door
 {
     [AddComponentMenu("")]
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
-    [HelpURL("https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/README.md")]
+    [HelpURL("https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/README.md#details")]
+#if UNITY_2021_2_OR_NEWER && UNITY_EDITOR
+    [Icon(ICON_PATH)]
+#endif
     public class DoorBehaviour : UdonSharpBehaviour
     {
-        
+#if UNITY_2021_2_OR_NEWER && UNITY_EDITOR
+        const string ICON_PATH = "Packages/net.fiakaiera.door/Runtime/Resources/MaterialSymbolsDoorOpen.png";
+#endif
         const float VOLUME_NEARLY_MUTE = 0.001f;
         const float LOW_UPDATE_RATE = 12f/60f;
         const float FAR_UPDATE_RATE = 60f;
         const ushort NETWORK_TICK_COUNT = 5; // (12 / 60)
+
+        const string EVENT_ENABLED = "OnDoorEnabled";
+        const string EVENT_DISABLED = "OnDoorDisabled";
+        const string EVENT_ENABLE_OPENED = "OnDoorEnableOpened";
+        const string EVENT_ENABLE_CLOSED = "OnDoorEnableClosed";
+        const string EVENT_ENABLE_LOCKED = "OnDoorEnableLocked";
+        const string EVENT_OPENED = "OnDoorOpened";
+        const string EVENT_OPENED_FULLY = "OnDoorOpenedFully";
+        const string EVENT_CLOSED = "OnDoorClosed";
+        const string EVENT_LOCKED = "OnDoorLocked";
+        const string EVENT_UNLOCKED = "OnDoorUnlocked";
+        const string EVENT_PICKUP = "OnDoorPickup";
+        const string EVENT_DROP = "OnDoorDrop";
+        const string EVENT_LOCAL_HANDLE_UP = "OnDoorLocalHandleUseUp";
+        const string EVENT_LOCAL_HANDLE_DOWN = "OnDoorLocalHandleUseDown";
+        const string EVENT_GLOBAL_HANDLE_UP = "OnDoorGlobalHandleUseUp";
+        const string EVENT_GLOBAL_HANDLE_DOWN = "OnDoorGlobalHandleUseDown";
         
         [Tooltip("If enabled, the door is locked upon instance start.")]
-        [SerializeField, UdonSynced, FieldChangeCallback(nameof(IsLocked))] bool _isLocked = false;
-        bool IsLocked {
-            set => SetIsLocked(value);
-            get => _isLocked;
+        [SerializeField, UdonSynced, FieldChangeCallback(nameof(Locked))] bool _locked = false;
+        bool Locked {
+            set => SetLocked(value);
+            get => _locked;
         }
         [Tooltip("If enabled, the door will always close, even when fully open.")]
         [SerializeField] protected bool alwaysClose = false;
-        [Tooltip("The speed the door rapidly shuts when locking or when the door is forced opened/closed via event. Setting this to 0 or less instantly open/closes the door. This value can be actively changed in Udon.")]
+        [Tooltip("The distance the door will snap closed / opened.\n\nIn meters for SlidingDoor, degrees for HingeDoor. Cannot be changed in runtime.")]
+        [SerializeField] protected float snappingDistance = 0.05f;
+        [Tooltip("The speed the door rapidly shuts when locking or when the door is forced opened/closed via event. Setting this to 0 or less instantly open/closes the door. This value can be actively changed in Udon.\n\nIn meters for SlidingDoor, degrees for HingeDoor.")]
         public float forcedSlidingSpeed = 10f;
         
-        [Tooltip("The miniumum speed the door slides towards being fully close/open when released.\nSetting this to 0 or less disables this.")]
-        [SerializeField] protected float slidingMinSpeed = 0.25f;        
+        [Tooltip("The miniumum speed the door slides towards being fully close/open when released.\nSetting this to 0 or less disables this.\n\nIn meters for SlidingDoor, degrees for HingeDoor.")]
+        [SerializeField] float slidingMinSpeed = 0.25f;
 
         [Header("Sound")]
         [SerializeField] AudioClip sfxClosed;
@@ -47,21 +73,30 @@ namespace FiaKaiera.Door
         [SerializeField] float lowUpdateDistance = 30f;
         [Tooltip("Distance where the door does not update since it's too far.")]
         [SerializeField] float farUpdateDistance = 50f;
+
+        [Header("Listener Events")]
+        [Tooltip("UdonBehaviours that will listen for events sent by this door.\nSee documentation for what events are sent.")]
+        [SerializeField] UdonBehaviour[] listeners;
+        [Tooltip("Enables sending `OnDoorGlobalHandleUseUp()` to listeners globally")]
+        [SerializeField] bool sendGlobalHandleUseUp = false;
+        [Tooltip("Enables sending `OnDoorGlobalHandleUseDown()` to listeners globally")]
+        [SerializeField] bool sendGlobalHandleUseDown = false;
+
         [Header("References")]
         [Tooltip("Transform that indicates the door's position.")]
         [SerializeField] protected Transform doorTransform;
-        [Tooltip("Door's handle, VRC_Pickup included.")]
-        [SerializeField] protected DoorHandle doorHandle;
 
         [Space]
         [Tooltip("The collider that is enabled when the door is considered closed.")]
         [SerializeField] Collider colliderClosed;
-        [Tooltip("Transform point where it is considered fully closed.")]
+        [Tooltip("Transform point where it is considered fully closed. Cannot be changed and removed during runtime.")]
         [SerializeField] protected Transform pointClosed;
-        [Tooltip("Transform point where it is considered fully opened.")]
+        [Tooltip("Transform point where it is considered fully opened. Cannot be changed and removed during runtime.")]
         [SerializeField] protected Transform pointOpened;
 
         [Header("Optional References")]
+        [Tooltip("Door's handle, VRC_Pickup included.")]
+        [SerializeField] protected DoorHandle doorHandle;
         [SerializeField] OcclusionPortal occlusionPortal;
         [SerializeField] AudioSource audioSource;
         [SerializeField] AudioSource slidingSource;
@@ -74,7 +109,7 @@ namespace FiaKaiera.Door
             set => SetHeldValue(value);
             get => _heldValue;
         }
-        protected float heldValueLerp = 0f;
+        protected float heldValueCurrent = 0f;
         protected float heldValuePrev = 0f;
         [UdonSynced, FieldChangeCallback(nameof(ReleaseSpeed))] float _releaseSpeed = 0f;
         float ReleaseSpeed
@@ -85,11 +120,14 @@ namespace FiaKaiera.Door
 
 		float localReleaseSpeed = 0f;
 
+        public bool IsLocked => _locked; 
+        public bool IsOpen => heldValueCurrent > doorSnapClose;
+        public float OpenPercent => heldValueCurrent;
+
         // Ticking
         bool isTicking = false;
         bool isTickingAlready = false;
-        protected bool IsTickingAlready => isTickingAlready;
-        protected float tickDeltaTime = 0f;
+        float tickDeltaTime = 0f;
         float tickLastTime = 0f;
         ushort networkTickCount = 0;
 
@@ -98,6 +136,8 @@ namespace FiaKaiera.Door
         bool isLoaded = false;
         protected Vector3 doorHandleOffset = Vector3.zero;
         float doorDistance = 0f;
+        float doorSnapClose = 0f;
+        float doorSnapFullOpen = 1f;
         float audioTimeout = float.MinValue;
 
         // =============================================================================
@@ -106,53 +146,100 @@ namespace FiaKaiera.Door
         void Start()
         {
             localPlayer = Networking.LocalPlayer;
-            doorHandle._SetDoorBehaviour(this);
-            doorHandleOffset = HandleSetOffset();
+            if (HandleIsValid)
+                doorHandle._SetDoorBehaviour(this);
+            CachePoints();
+            Destroy(pointOpened.gameObject);
+            Destroy(pointClosed.gameObject);
+            RecalculateDistances();
+            if (Networking.IsOwner(gameObject))
+                OnDeserialization();
+        }
+
+        void OnEnable()
+        {
+            if (!isLoaded) return;
+            isLoaded = false;
+            _OnDoorEnabled();
+            isLoaded = true;
+            SendEvent(EVENT_ENABLED);
+        }
+
+        void OnDisable()
+        {
+            TickStop();
+            SendEvent(EVENT_DISABLED);
+        }
+
+        void RecalculateDistances()
+        {
+            if (HandleIsValid)
+                doorHandleOffset = HandleSetOffset();
             doorDistance = DoorDistanceCalc();
+            doorSnapClose = Math.Abs(snappingDistance) / doorDistance;
+            if (doorSnapClose > 0.5f) doorSnapClose = 0.5f;
+            doorSnapFullOpen = 1 - doorSnapClose;
         }
 
         public override void OnDeserialization()
         {
             if (isLoaded) return;
+            _OnDoorEnabled();
             isLoaded = true;
-            _OnDoorLoaded();
         }
 
-        void _OnDoorLoaded()
+        void _OnDoorEnabled()
         {
             // Lock if locked
-            if (IsLocked)
+            if (Locked)
             {
                 localReleaseSpeed = -Mathf.Abs(forcedSlidingSpeed);
-				heldValueLerp = 0f;
-				colliderClosed.enabled = true;
-                SetOcclusionPortalOpen(false);
+                HeldValueSetLerpAndPosition(0f);
+                HeldStateClosed();
+                SendEvent(EVENT_ENABLE_LOCKED);
             }
 
             // Leave it open if partially open without slidingMinSpeed
             else if (slidingMinSpeed <= 0)
 			{
-				localReleaseSpeed = 0;
-				heldValueLerp = HeldValue;
-				colliderClosed.enabled = HeldValue <= 0;
-				SetOcclusionPortalOpen(colliderClosed.enabled);
+                localReleaseSpeed = 0f;
+                HeldValueSetLerpAndPosition(HeldValue);
+                if (heldValueCurrent <= doorSnapClose)
+                {
+                    HeldStateClosed();
+                    SendEvent(EVENT_ENABLE_CLOSED);
+                }
+                else if (heldValueCurrent >= doorSnapFullOpen)
+                {
+                    HeldStateOpenedFully();
+                    SendEvent(EVENT_ENABLE_OPENED);
+                }
+                else
+                {
+                    HeldStateOpened();
+                    SendEvent(EVENT_ENABLE_OPENED);
+                }
+                    
 			}
 
             // Have the door open/close when entered
-            // No need to slowly animate it on enter
+            // No need to slowly animate it when player locally joins
             else
 			{
-				localReleaseSpeed = ReleaseSpeed;
-				heldValueLerp = ReleaseSpeed < 0 ? 0 : 1;
-				colliderClosed.enabled = ReleaseSpeed < 0;
-				SetOcclusionPortalOpen(colliderClosed.enabled);
+                localReleaseSpeed = ReleaseSpeed;
+                HeldValueSetLerpAndPosition(localReleaseSpeed <= 0f ? 0f : 1f);
+                if (heldValueCurrent <= doorSnapClose)
+                    HeldStateClosed();
+                else
+                    HeldStateOpenedFully();
 			}
 
-            HeldValueSetPosition(heldValueLerp);
-            doorHandle.pickup.pickupable = !IsLocked;
-			if (doorHandle.pickup.pickupable)
+            HandleSetPickupable(!Locked);
+			if (HandleGetPickupable())
 				HandleUpdatePosition();
         }
+
+        protected virtual void CachePoints() {}
 
         #endregion
         // =============================================================================
@@ -174,6 +261,7 @@ namespace FiaKaiera.Door
         void _LocalDoorPickup()
         {
             networkTickCount = 0;
+            localReleaseSpeed = 0f;
             HeldValueUpdate();
         }
 
@@ -193,73 +281,80 @@ namespace FiaKaiera.Door
         public void _NetworkDoorPickup()
         {
             // Prevent stealing
-            doorHandle.pickup.pickupable = false;
+            HandleSetPickupable(false);
+            SendEvent(EVENT_PICKUP);
         }
 
         [VRC.SDK3.UdonNetworkCalling.NetworkCallable]
         public void _NetworkDoorDrop()
         {
-            doorHandle.pickup.pickupable = !IsLocked;
-            HandleUpdatePosition();
+            HandleSetPickupable(!Locked);
             localReleaseSpeed = ReleaseSpeed;
-
-            // Do not move if not sliding
-            if (slidingMinSpeed <= 0)
-            {
-                heldValueLerp = HeldValue;
-				HeldValueSetPosition(heldValueLerp);
-				TickStop();
-            }
 
             // Snap if far away
             if (GetCameraDistance() > farUpdateDistance)
             {
-                heldValueLerp = ReleaseSpeed < 0 ? 0 : 1;
-                HeldValueSetPosition(heldValueLerp);
+                HeldValueSetLerpAndPosition(ReleaseSpeed < 0 ? 0 : 1);
                 TickStop();
             }
+
+            // Do not move if not sliding
+            else if (slidingMinSpeed <= 0)
+            {
+                HeldValueSetLerpAndPosition(HeldValue);
+				TickStop();
+            }
+
+            else
+            {
+                HeldValueSetLerpAndPosition(heldValueCurrent);
+            }
+
+            HandleUpdatePosition();
+            SendEvent(EVENT_DROP);
         }
 
         #endregion
         // =============================================================================
         #region Locking
 
-        void SetIsLocked(bool value)
+        void SetLocked(bool value)
         {
-            if (_isLocked == value) return;
-            _isLocked = value;
+            if (_locked == value) return;
+            _locked = value;
             
-            if (_isLocked)
+            if (_locked)
             {
                 // Force the door to close if open
                 if (forcedSlidingSpeed > 0f)
                 {
-                    localReleaseSpeed = -forcedSlidingSpeed;
-                    if (heldValueLerp > 0f)
-                        TickStart();
+                    if (heldValueCurrent > doorSnapClose)
+                        ForceRelease(-forcedSlidingSpeed, heldValueCurrent);
                     else {
-                        heldValueLerp = 0f;
-                        SoundPlay(sfxLocked);
+                        localReleaseSpeed = -forcedSlidingSpeed;
+                        HeldValueSetLerpAndPosition(0f);
+                        if (isLoaded)
+                            SoundPlay(sfxLocked);
                     }
                 }
 
                 // Snap the door shut if it doesn't have slide force
                 else
                 {
-                    heldValueLerp = 0f;
-                    HeldValueSetPosition(heldValueLerp);
-                    SoundPlay(sfxLocked);
+                    HeldValueSetLerpAndPosition(0f);
+                    if (!isLoaded)
+                        SoundPlay(sfxLocked);
                 }
             }
         }
 
         void SetLock(bool value)
         {
-            if (IsLocked == value) return;
+            if (Locked == value) return;
             if (!Networking.IsOwner(gameObject))
                 Networking.SetOwner(localPlayer, gameObject);
             
-            IsLocked = value;
+            Locked = value;
             
             if (value)
             {
@@ -277,7 +372,7 @@ namespace FiaKaiera.Door
             }
         }
 
-        public void ToggleLock() => SetLock(!IsLocked);
+        public void ToggleLock() => SetLock(!Locked);
         public void Lock() => SetLock(true);
         public void Unlock() => SetLock(false);
         void _LocalDoorLock()
@@ -290,17 +385,19 @@ namespace FiaKaiera.Door
         [VRC.SDK3.UdonNetworkCalling.NetworkCallable]
         public void _NetworkDoorLock()
         {
-            doorHandle.pickup.pickupable = false;
-			doorHandle.pickup.Drop();
+            HandleSetPickupable(false);
+            HandleDrop();
 			colliderClosed.enabled = true;
+            SendEvent(EVENT_LOCKED);
         }
 
         [VRC.SDK3.UdonNetworkCalling.NetworkCallable]
         public void _NetworkDoorUnlock()
         {
-            doorHandle.pickup.pickupable = true;
+            HandleSetPickupable(true);
 			HandleUpdatePosition();
 			SoundPlay(sfxUnlocked);
+            SendEvent(EVENT_UNLOCKED);
         }
 
         #endregion
@@ -311,7 +408,7 @@ namespace FiaKaiera.Door
         {
             if (!Networking.IsOwner(gameObject))
                 Networking.SetOwner(localPlayer, gameObject);
-            if (IsLocked) Unlock();
+            if (Locked) Unlock();
             SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All,
                 isOpen ? nameof(_NetworkDoorForceOpen) : nameof(_NetworkDoorForceClose));
         }
@@ -323,24 +420,31 @@ namespace FiaKaiera.Door
         public void _NetworkDoorForceOpen()
         {
             // Do not if door already open
-            if (heldValueLerp > 1f) return;
-
-			doorHandle.pickup.Drop();
-			localReleaseSpeed = forcedSlidingSpeed;
-			heldValueLerp = Mathf.Max(0.001f, heldValueLerp);
-			TickStart();
+            if (heldValueCurrent >= doorSnapFullOpen) return;
+            ForceRelease(
+                forcedSlidingSpeed,
+                Mathf.Max(doorSnapClose + 0.001f, heldValueCurrent)
+            );
         }
 
         [VRC.SDK3.UdonNetworkCalling.NetworkCallable]
         public void _NetworkDoorForceClose()
         {
             // Do not if door already closed
-            if (heldValueLerp < 0f) return;
+            if (heldValueCurrent <= doorSnapClose) return;
+            ForceRelease(
+                -forcedSlidingSpeed,
+                Mathf.Min(doorSnapFullOpen - 0.001f, heldValueCurrent)
+            );
+        }
 
-			doorHandle.pickup.Drop();
-			localReleaseSpeed = -forcedSlidingSpeed;
-			heldValueLerp = Mathf.Min(0.999f, heldValueLerp);
-			TickStart();
+        void ForceRelease(float speed, float lerp)
+        {
+            HandleDrop();
+            localReleaseSpeed = speed;
+            heldValueCurrent = lerp;
+            HeldValueSetPosition(heldValueCurrent);
+            TickStart();
         }
 
         #endregion
@@ -352,9 +456,9 @@ namespace FiaKaiera.Door
             _heldValue = value;
 
             // Update door if held
-            if (HeldValue > -1 && !IsTickingAlready)
+            if (HeldValue > -1 && !isTickingAlready)
 			{
-				heldValueLerp = HeldValue;
+				heldValueCurrent = HeldValue;
 				TickStart();
 			}
         }
@@ -364,18 +468,19 @@ namespace FiaKaiera.Door
             _releaseSpeed = value;
 
             // Update if released
-            if (IsTickingAlready)
+            if (isTickingAlready)
                 localReleaseSpeed = ReleaseSpeed;
         }
 
         void HeldValueUpdate()
         {
-            float newValue = Mathf.Clamp01(HeldValueCalc());
+            float newValue = HeldValueClampSnap(HeldValueCalc());
             float newReleaseSpeed = newValue - HeldValue;
             if (newReleaseSpeed != 0)
-                localReleaseSpeed = newReleaseSpeed;
+                localReleaseSpeed = ExpDecay(localReleaseSpeed, newReleaseSpeed, 25, tickDeltaTime);
             
             HeldValue = newValue;
+
             if (networkTickCount % NETWORK_TICK_COUNT == 0)
 			{
 				RequestSerialization();
@@ -386,29 +491,22 @@ namespace FiaKaiera.Door
 
         void HeldValueTickHeld(bool isOwner)
         {
-            heldValueLerp = isOwner ? HeldValue :
-                ExpDecay(heldValueLerp, HeldValue, EXP_DECAY_DEFAULT, tickDeltaTime);
+            // Doesn't use HeldValueSetLerp() to avoid HeldValueClampSnap()
+            heldValueCurrent = isOwner ? HeldValue :
+                ExpDecay(heldValueCurrent, HeldValue, EXP_DECAY_DEFAULT, tickDeltaTime);
+            HeldValueSetPosition(HeldValueClampSnap(heldValueCurrent));
 
-            HeldValueSetPosition(heldValueLerp);
-            colliderClosed.enabled = heldValueLerp <= 0;
-            SetOcclusionPortalOpen(colliderClosed.enabled);
-
-            if (heldValuePrev != heldValueLerp)
+            if (heldValuePrev != heldValueCurrent)
             {
-                if (heldValuePrev > 0 && heldValueLerp == 0) {
-                    SoundSlidingSetVolume(VOLUME_NEARLY_MUTE);
-                    SoundPlay(sfxClosed);
-                } else if (heldValueLerp > 0 && heldValuePrev == 0) {
-                    SoundSlidingSetVolume(VOLUME_NEARLY_MUTE);
-                    SoundPlay(sfxOpened);
-                } else if (heldValueLerp == 1 && heldValuePrev < 1) {
-                    SoundSlidingSetVolume(VOLUME_NEARLY_MUTE);
-                    SoundPlay(sfxOpenedFully);
-                } else
-                {
+                if (heldValuePrev > doorSnapClose && heldValueCurrent <= doorSnapClose)
+                    HeldStateClosed();
+                else if (heldValueCurrent > doorSnapClose && heldValuePrev <= doorSnapClose)
+                    HeldStateOpened();
+                else if (heldValueCurrent >= doorSnapFullOpen && heldValuePrev < doorSnapFullOpen)
+                    HeldStateOpenedFully();
+                else
                     SoundSlidingLerpVolumeByMovement();
-                }
-                heldValuePrev = heldValueLerp;
+                heldValuePrev = heldValueCurrent;
             }
 
             else if (slidingSource.volume > VOLUME_NEARLY_MUTE)
@@ -417,54 +515,104 @@ namespace FiaKaiera.Door
 
         void HeldValueTickReleased()
         {
-            heldValueLerp += localReleaseSpeed * tickDeltaTime;
-
+            HeldValueSetLerpAndPosition(
+                heldValueCurrent + (localReleaseSpeed * tickDeltaTime)
+            );
             SoundSlidingLerpVolumeByMovement();
-            HeldValueSetPosition(heldValueLerp);
-            if (doorHandle.pickup.pickupable)
+
+            if (HandleGetPickupable())
                 HandleUpdatePosition();
 
-            if (IsLocked)
+            if (Locked)
             {
-                if (heldValueLerp > 0f) return;
-                heldValueLerp = 0f;
-                colliderClosed.enabled = true;
-
+                if (heldValueCurrent > doorSnapClose) return;
+                heldValueCurrent = 0f;
+                HeldStateClosed();
                 SoundPlay(sfxLocked);
-                SetOcclusionPortalOpen(false);
                 TickStop();
             }
 
             else if (alwaysClose)
             {
-                if (heldValueLerp >= 1f && localReleaseSpeed > 0f)
+                // Close as it reaches fully open
+                if (heldValueCurrent >= 1f && localReleaseSpeed > 0f)
                 {
-                    heldValueLerp = 1f;
-                    SoundPlay(sfxOpenedFully);
+                    heldValueCurrent = 1f;
+                    HeldStateOpenedFully();
                     localReleaseSpeed = -localReleaseSpeed;
                 }
                 
-                if (heldValueLerp <= 0f)
+                // Stop when closed
+                if (heldValueCurrent <= doorSnapClose)
                 {
-                    heldValueLerp = 0f;
-                    colliderClosed.enabled = true;
-                    SoundPlay(sfxClosed);
-                    SetOcclusionPortalOpen(false);
+                    heldValueCurrent = 0f;
+                    HeldStateClosed();
                     TickStop();
                 }
             }
 
-            else if (!(heldValueLerp > 0f && heldValueLerp < 1f))
+            else if (!(heldValueCurrent > doorSnapClose && heldValueCurrent < doorSnapFullOpen))
             {
-                heldValueLerp = Mathf.Clamp01(heldValueLerp);
-                colliderClosed.enabled = heldValueLerp <= 0f;
-
-                SoundPlay(heldValueLerp <= 0f ? sfxClosed : sfxOpenedFully);
-                SetOcclusionPortalOpen(heldValueLerp <= 0f);
+                // Stop when reaching closed/fully open
+                heldValueCurrent = Mathf.Clamp01(heldValueCurrent);
+                if (heldValueCurrent <= doorSnapClose)
+                    HeldStateClosed();
+                else
+                    HeldStateOpenedFully();
                 TickStop();
             }
 
-            heldValuePrev = heldValueLerp;
+            heldValuePrev = heldValueCurrent;
+        }
+
+        void HeldStateOpened()
+        {
+            colliderClosed.enabled = false;
+            SetOcclusionPortalOpen(false);
+            if (isLoaded)
+            {
+                SoundPlay(sfxOpened);
+                SoundSlidingSetVolume(VOLUME_NEARLY_MUTE);
+                SendEvent(EVENT_OPENED);
+            }
+        }
+
+        void HeldStateOpenedFully()
+        {
+            colliderClosed.enabled = false;
+            SetOcclusionPortalOpen(false);
+            if (isLoaded)
+            {
+                SoundPlay(sfxOpenedFully);
+                SoundSlidingSetVolume(VOLUME_NEARLY_MUTE);
+                SendEvent(EVENT_OPENED_FULLY);
+            }
+        }
+
+        void HeldStateClosed()
+        {
+            colliderClosed.enabled = true;
+            SetOcclusionPortalOpen(true);
+            if (isLoaded)
+            {
+                SoundPlay(sfxClosed);
+                SoundSlidingSetVolume(VOLUME_NEARLY_MUTE);
+                SendEvent(EVENT_CLOSED);
+            }
+        }
+
+        void HeldValueSetLerp(float value) => heldValueCurrent = HeldValueClampSnap(value);
+        void HeldValueSetLerpAndPosition(float value)
+        {
+            HeldValueSetLerp(value);
+            HeldValueSetPosition(heldValueCurrent);
+        }
+
+        float HeldValueClampSnap(float value)
+        {
+            if (value < doorSnapClose) return 0f;
+            else if (value > doorSnapFullOpen) return 1f;
+            else return value;
         }
 
         protected virtual float DoorDistanceCalc() => 0f;
@@ -475,7 +623,58 @@ namespace FiaKaiera.Door
 
         #endregion
         // =============================================================================
+        #region Handle
 
+        protected bool HandleIsValid => Utilities.IsValid(doorHandle);
+
+        void HandleDrop()
+        {
+            if (!HandleIsValid) return;
+            doorHandle.pickup.Drop();
+        }
+
+        void HandleSetPickupable(bool value)
+        {
+            if (!HandleIsValid) return;
+            doorHandle.pickup.pickupable = value;
+        }
+
+        bool HandleGetPickupable()
+        {
+            if (!HandleIsValid) return false;
+            return doorHandle.pickup.pickupable;
+        }
+
+        bool HandlePickupHeld()
+        {
+            if (!HandleIsValid) return false;
+            return doorHandle.pickup.IsHeld;
+        }
+
+        public void _OnHandleUse(bool up)
+        {
+            if (up)
+            {
+                SendEvent(EVENT_LOCAL_HANDLE_UP);
+                if (sendGlobalHandleUseUp)
+                    SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, nameof(_OnGlobalHandleUseUp));
+            }
+            else
+            {
+                SendEvent(EVENT_LOCAL_HANDLE_DOWN);
+                if (sendGlobalHandleUseDown)
+                    SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, nameof(_OnGlobalHandleUseDown));
+            }
+        }
+
+        [NetworkCallable]
+        public void _OnGlobalHandleUseUp() => SendEvent(EVENT_GLOBAL_HANDLE_UP);
+
+        [NetworkCallable]
+        public void _OnGlobalHandleUseDown() => SendEvent(EVENT_GLOBAL_HANDLE_DOWN);
+
+        #endregion
+        // =============================================================================
 
         protected void SetOcclusionPortalOpen(bool value)
 		{
@@ -607,7 +806,7 @@ namespace FiaKaiera.Door
         void _OnTickStart()
         {
             if (GetCameraDistance() > farUpdateDistance) return;
-            SoundSlidingSetVolume(IsLocked ? forcedSlidingSpeed : VOLUME_NEARLY_MUTE);
+            SoundSlidingSetVolume(Locked ? forcedSlidingSpeed : VOLUME_NEARLY_MUTE);
             SoundSlidingPlay();
         }
 
@@ -615,19 +814,33 @@ namespace FiaKaiera.Door
         {
             SoundSlidingSetVolume(0f);
             SoundSlidingStop();
-			HeldValueSetPosition(heldValueLerp);
+			HeldValueSetPosition(heldValueCurrent);
         }
 
         void _OnTick()
         {
             bool isOwner = Networking.IsOwner(gameObject);
-			if (isOwner && doorHandle.pickup.IsHeld)
+			if (isOwner && HandlePickupHeld())
 				HeldValueUpdate();
             
             if (HeldValue > -1)
                 HeldValueTickHeld(isOwner);
             else
                 HeldValueTickReleased();
+        }
+
+        #endregion
+        // =============================================================================
+        #region Event Listening
+
+        void SendEvent(string _event)
+        {
+            if (listeners.Length == 0) return;
+            foreach(UdonBehaviour behaviour in listeners)
+            {
+                if (!Utilities.IsValid(behaviour)) return;
+                SendCustomEvent(_event);
+            }
         }
 
         #endregion

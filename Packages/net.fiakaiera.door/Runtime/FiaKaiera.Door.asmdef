@@ -1,14 +1,11 @@
 {
-    "name": "net.fiakaiera.door.Editor",
+    "name": "FiaKaiera.Door",
     "rootNamespace": "",
     "references": [
         "VRC.SDK3",
-        "VRC.SDK3.Editor",
         "VRC.SDKBase",
-        "VRC.SDKBase.Editor",
-        "UdonSharp.Editor",
-        "UdonSharp.Runtime",
-        "net.fiakaiera.door"
+        "VRC.Udon",
+        "UdonSharp.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
