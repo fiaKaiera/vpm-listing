@@ -12,6 +12,7 @@
         "url":"http://github.com/fiaKaiera/vpm-listing",
         "text":"View on GitHub"
     },
+    "bannerUrl":"banner.png",
     "packages":[
         {
             "name":"net.fiakaiera.door",
