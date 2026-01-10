@@ -1,25 +1,27 @@
 {
-    "name":"fiaKaiera's VPM Catalogue",
-    "id":"net.fiakaiera.vpm-listing",
-    "url":"https://fiakaiera.github.io/vpm-listing/index.json",
+    "name":"Example Listing",
+    "id":"com.vrchat.example-listing",
+    "url":"https://vrchat-community.github.io/template-package-listing/index.json",
     "author":{
-        "email":"kaiera@furria.net",
-        "name":"fiaKaiera",
-        "url":"https://github.com/fiaKaiera"
+        "email":"developer@vrchat.com",
+        "name":"VRChat",
+        "url":"https://hello.vrchat.com"
     },
-    "description":"VPM-compatible repository for fiaKaiera's VRChat packages",
+    "description":"Example listing of VRChat packages",
     "infoLink":{
-        "url":"http://github.com/fiaKaiera/vpm-listing",
+        "url":"http://github.com/vrchat-community/template-package-listing",
         "text":"View on GitHub"
     },
     "bannerUrl":"banner.png",
+    "githubRepos":[
+        "vrchat-community/clientsim"
+    ],
     "packages":[
         {
-            "name":"net.fiakaiera.door",
+            "name":"com.vrchat.udonsharp",
             "releases":[
-                "https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.0/net.fiakaiera.door-1.1.0.zip",
-                "https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.1/net.fiakaiera.door-1.0.1.zip",
-                "https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.0/net.fiakaiera.door-1.0.0.zip"                
+                "https://github.com/vrchat-community/UdonSharp/releases/download/1.1.7/com.vrchat.UdonSharp.zip",
+                "https://github.com/vrchat-community/UdonSharp/releases/download/1.1.6/com.vrchat.UdonSharp-1.1.6.zip"
             ]
         }
     ]
