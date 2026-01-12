@@ -17,12 +17,12 @@ A collection of VRChat assets made by fiaKaiera collected into one repository.
 
 ---
 
-- [**Real-ish Doors**](Packages/net.fiakaiera.door) v1.1.0 
+- [**Real-ish Doors**](Packages/net.fiakaiera.door) v1.1.1 
 <br>VRChat door system that acts semi-realisitically.
 <br>These doors can be locked or forced open/closed using events.
 <br>![](https://api.iconify.design/material-symbols-light:download-2-rounded.svg?color=%23aaa&height=24)
-[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.0/net.fiakaiera.door-1.1.0.unitypackage) ]
-[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.0/net.fiakaiera.door-1.1.0.zip) ]
+[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.1/net.fiakaiera.door-1.1.1.unitypackage) ]
+[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.1/net.fiakaiera.door-1.1.1.zip) ]
 
 - *maybe more coming soon...*
 

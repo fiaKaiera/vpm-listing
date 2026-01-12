@@ -11,16 +11,8 @@ namespace FiaKaiera.Door
 	public class SlidingDoor : DoorBehaviour
 	{
 		const float SLIDING_VOLUME_MULTIPLIER = 100f;
-		float xOpened = 0f;
-		float xClosed = 0f;
 
-		protected override void CachePoints()
-		{
-			xOpened = pointOpened.localPosition.x;
-			xClosed = pointClosed.localPosition.x;
-		}
-
-        protected override float DoorDistanceCalc() => Mathf.Abs(xOpened - xClosed);
+        protected override float DoorDistanceCalc() => Mathf.Abs(valueOpened - valueClosed);
 
 		protected override Vector3 HandleSetOffset()
 		{
@@ -32,13 +24,13 @@ namespace FiaKaiera.Door
 		{
 			if (!HandleIsValid) return -1;
 			return Mathf.InverseLerp(
-				xClosed, xOpened, doorHandle.transform.localPosition.x + doorHandleOffset.x);
+				valueClosed, valueOpened, doorHandle.transform.localPosition.x + doorHandleOffset.x);
 		}
 		
 		protected override void HeldValueSetPosition(float value)
 		{
 			Vector3 doorPosition = doorTransform.localPosition;
-			doorPosition.x = Mathf.Lerp(xClosed, xOpened, value);
+			doorPosition.x = Mathf.Lerp(valueClosed, valueOpened, value);
 			doorTransform.localPosition = doorPosition;
 		}
 
@@ -52,10 +44,9 @@ namespace FiaKaiera.Door
 
 		protected override float SoundSlidingHeldValueCalc()
 		{
-			float distancePrev = Mathf.Lerp(xClosed, xOpened, heldValuePrev);
-			float distanceLerp = Mathf.Lerp(xClosed, xOpened, heldValueCurrent);
+			float distancePrev = Mathf.Lerp(valueClosed, valueOpened, heldValuePrev);
+			float distanceLerp = Mathf.Lerp(valueClosed, valueOpened, heldValueCurrent);
 			return Mathf.Abs(distancePrev - distanceLerp) * SLIDING_VOLUME_MULTIPLIER;
 		}
 	}    
 }
-

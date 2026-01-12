@@ -50,11 +50,18 @@ namespace FiaKaiera.Door
         }
         [Tooltip("If enabled, the door will always close, even when fully open.")]
         [SerializeField] protected bool alwaysClose = false;
+
+        [Space]
+        [Tooltip("Local value where the door is considered fully closed.\nCannot be changed during runtime.\n\nIn meters for SlidingDoor, degrees for HingeDoor.")]
+        [SerializeField] protected float valueClosed;
+        [Tooltip("Local value where the door is considered fully opened.\nCannot be changed during runtime.\n\nIn meters for SlidingDoor, degrees for HingeDoor.")]
+        [SerializeField] protected float valueOpened;
         [Tooltip("The distance the door will snap closed / opened.\n\nIn meters for SlidingDoor, degrees for HingeDoor. Cannot be changed in runtime.")]
+
+        [Space]
         [SerializeField] protected float snappingDistance = 0.05f;
         [Tooltip("The speed the door rapidly shuts when locking or when the door is forced opened/closed via event. Setting this to 0 or less instantly open/closes the door. This value can be actively changed in Udon.\n\nIn meters for SlidingDoor, degrees for HingeDoor.")]
         public float forcedSlidingSpeed = 10f;
-        
         [Tooltip("The miniumum speed the door slides towards being fully close/open when released.\nSetting this to 0 or less disables this.\n\nIn meters for SlidingDoor, degrees for HingeDoor.")]
         [SerializeField] float slidingMinSpeed = 0.25f;
 
@@ -85,14 +92,8 @@ namespace FiaKaiera.Door
         [Header("References")]
         [Tooltip("Transform that indicates the door's position.")]
         [SerializeField] protected Transform doorTransform;
-
-        [Space]
         [Tooltip("The collider that is enabled when the door is considered closed.")]
         [SerializeField] Collider colliderClosed;
-        [Tooltip("Transform point where it is considered fully closed. Cannot be changed and removed during runtime.")]
-        [SerializeField] protected Transform pointClosed;
-        [Tooltip("Transform point where it is considered fully opened. Cannot be changed and removed during runtime.")]
-        [SerializeField] protected Transform pointOpened;
 
         [Header("Optional References")]
         [Tooltip("Door's handle, VRC_Pickup included.")]
@@ -148,9 +149,6 @@ namespace FiaKaiera.Door
             localPlayer = Networking.LocalPlayer;
             if (HandleIsValid)
                 doorHandle._SetDoorBehaviour(this);
-            CachePoints();
-            Destroy(pointOpened.gameObject);
-            Destroy(pointClosed.gameObject);
             RecalculateDistances();
             if (Networking.IsOwner(gameObject))
                 OnDeserialization();
@@ -238,8 +236,6 @@ namespace FiaKaiera.Door
 			if (HandleGetPickupable())
 				HandleUpdatePosition();
         }
-
-        protected virtual void CachePoints() {}
 
         #endregion
         // =============================================================================
@@ -864,6 +860,18 @@ namespace FiaKaiera.Door
         protected const float EXP_DECAY_DEFAULT = 10f;
         protected float ExpDecay(float a, float b, float decay, float deltaTime)
             => b + (a - b) * Mathf.Exp(-decay * deltaTime);
+        
+
+        // =============================================================================
+        #region Editor
+        #if UNITY_EDITOR
+        public Transform GetDoorTransform() => doorTransform;
+        public float GetValueOpened() => valueOpened;
+        public float GetValueClosed() => valueClosed;
+        public void SetValueOpened(float value) => valueOpened = value;
+        public void SetValueClosed(float value) => valueClosed = value;
+        #endif
+        #endregion
 
     }
 }
