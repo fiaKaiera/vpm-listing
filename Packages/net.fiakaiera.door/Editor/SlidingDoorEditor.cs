@@ -6,7 +6,10 @@ namespace FiaKaiera.Door
     [CustomEditor(typeof(SlidingDoor)), CanEditMultipleObjects]
     public class SlidingDoorEditor : Editor
     {
+        const float HANDLE_SIZE = 0.4f;
         const float SLIDER_SNAP = 0.1f;
+        Color HandleColor => Color.cyan;
+
         protected virtual void OnSceneGUI()
         {
             SlidingDoor door = (SlidingDoor)target;
@@ -15,11 +18,11 @@ namespace FiaKaiera.Door
             Vector3 doorRight = door.transform.right;
 
             float scale = door.transform.lossyScale.x;
-            float size = HandleUtility.GetHandleSize(doorPosition) * 0.4f;
+            float size = HandleUtility.GetHandleSize(doorPosition) * HANDLE_SIZE;
             float halfSize = size * 0.5f;
 
             EditorGUI.BeginChangeCheck();
-            Handles.color = Color.cyan;
+            Handles.color = HandleColor;
 
             int closedId = GUIUtility.GetControlID(FocusType.Passive) + 1;
             float closedValue = door.GetValueClosed();
@@ -52,8 +55,16 @@ namespace FiaKaiera.Door
             }
 
             if (!EditorGUI.EndChangeCheck()) return;
-            if (closedValue != closedPos) door.SetValueClosed(closedPos);
-            if (openedValue != openedPos) door.SetValueClosed(openedPos);
+            if (closedValue != closedPos) 
+            {
+                Undo.RecordObject(door, "Change Value Closed");
+                door.SetValueClosed(closedPos);
+            }
+            if (openedValue != openedPos)
+            {
+                Undo.RecordObject(door, "Change Value Opened");
+                door.SetValueOpened(openedPos);
+            }
         }
         
         float SliderDistance(Vector3 position, Vector3 direction, float offset, float value, float scale, float handleSize)

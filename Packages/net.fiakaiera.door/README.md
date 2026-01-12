@@ -68,6 +68,8 @@ The door prefab contains a `DoorBehaviour` object inside it, depending on what d
 - **Locked:** If enabled, the door is locked upon instance start.
   - Value can be obtained via `IsLocked` variable and can only be changed with `Lock()` and `Unlock()` events
 - **Always Close:** If enabled, the door will always close, even when fully open.
+- **Value Closed:** Local value (affected by the object's scale and rotation) where the door is considered fully closed. Cannot be changed.
+- **Value Opened:** Local value (affected by the object's scale and rotation) where the door is considered fully open. Cannot be changed.
 - **Snapping Distance:** The distance the door will snap closed / opened.
   - In meters for `SlidingDoor`, in degrees for `HingeDoor`
   - Cannot be changed during runtime
@@ -97,8 +99,6 @@ The door prefab contains a `DoorBehaviour` object inside it, depending on what d
   <br>If using the prefab, all of these doesn't need to be changed at all unless modified.
   - **Door Transform:** The `Transform` where the door is located. If you need a visual for the door, it is placed here.
   - **Collider Closed:** The door's `Collider` when closed. Is enabled when closed.
-  - **Point Closed:** The `Transform` point the door is considered closed.
-  - **Point Opened:** The `Transform` point where the door is considered fully open.
 - **Optional References:**
   - **Door Handle:** The `DoorHandle` that makes the door's handle. Requires a `VRC Pickup` to function.
   - **Occlusion Portal:** The `OcclusionPortal` that blocks occlusion when closed.
