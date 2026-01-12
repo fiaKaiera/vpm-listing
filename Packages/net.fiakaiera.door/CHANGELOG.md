@@ -31,5 +31,5 @@
 
 [v1.1.1](https://github.com/fiaKaiera/vpm-listing/releases/tag/door-1.1.1)
 - Opened and closed Points have been replaced with handles, no longer requiring two extra objects
-- Door object is now anchored at `0`, instead of `-1` for consistency for future `HingeDoor`
+- Door object is now anchored at `x:0`, instead of `x:-1` for consistency for future `HingeDoor`
 - Handle object's layer is set to `Pickup`
