@@ -36,4 +36,4 @@
 
 [v1.1.2](https://github.com/fiaKaiera/vpm-listing/releases/tag/door-1.1.1)
 - Fixed Editor Assembly Definition now only targets Editor
-- Fixed abstract class on RequireComponent for `DoorHandle`
+- Fixed abstract class in RequireComponent for `DoorHandle`
