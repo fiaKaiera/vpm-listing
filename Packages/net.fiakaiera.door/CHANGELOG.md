@@ -34,6 +34,6 @@
 - Door object is now anchored at `x:0`, instead of `x:-1` for consistency for future `HingeDoor`
 - Handle object's layer is set to `Pickup`
 
-[v1.1.2](https://github.com/fiaKaiera/vpm-listing/releases/tag/door-1.1.1)
+[v1.1.2](https://github.com/fiaKaiera/vpm-listing/releases/tag/door-1.1.2)
 - Fixed Editor Assembly Definition now only targets Editor
 - Fixed abstract class in RequireComponent for `DoorHandle`
