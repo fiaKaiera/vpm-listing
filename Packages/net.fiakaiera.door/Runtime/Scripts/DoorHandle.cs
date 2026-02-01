@@ -1,6 +1,7 @@
 ﻿
 using UdonSharp;
 using UnityEngine;
+using VRC.SDK3.Components;
 using VRC.SDKBase;
 using VRC.Udon;
 
@@ -9,7 +10,7 @@ namespace FiaKaiera.Door
     [AddComponentMenu("fiaKaiera/Door/Door Handle")]
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     [HelpURL("https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/README.md#door-handle")]
-    [RequireComponent(typeof(VRC_Pickup), typeof(Rigidbody))]
+    [RequireComponent(typeof(VRCPickup), typeof(Rigidbody))]
 #if UNITY_2021_2_OR_NEWER && UNITY_EDITOR
     [Icon(ICON_PATH)]
 #endif
