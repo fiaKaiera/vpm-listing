@@ -37,3 +37,8 @@
 [v1.1.2](https://github.com/fiaKaiera/vpm-listing/releases/tag/door-1.1.2)
 - Fixed Editor Assembly Definition now only targets Editor
 - Fixed abstract class in RequireComponent for `DoorHandle`
+
+[v1.1.3](https://github.com/fiaKaiera/vpm-listing/releases/tag/door-1.1.3)
+- Always close now uses sliding min speed instead of release speed (it was not pleasant when put into practice)
+- Fixed doors that always close being stuck at the full open state when left alone to fully open
+- Fixed missing opening sound reference

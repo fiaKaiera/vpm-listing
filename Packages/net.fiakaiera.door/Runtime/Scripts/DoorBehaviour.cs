@@ -531,11 +531,11 @@ namespace FiaKaiera.Door
             else if (alwaysClose)
             {
                 // Close as it reaches fully open
-                if (heldValueCurrent >= 1f && localReleaseSpeed > 0f)
+                if (heldValueCurrent >= doorSnapFullOpen && localReleaseSpeed > 0f)
                 {
-                    heldValueCurrent = 1f;
+                    heldValueCurrent = doorSnapFullOpen;
                     HeldStateOpenedFully();
-                    localReleaseSpeed = -localReleaseSpeed;
+                    localReleaseSpeed = -slidingMinSpeed;
                 }
                 
                 // Stop when closed
