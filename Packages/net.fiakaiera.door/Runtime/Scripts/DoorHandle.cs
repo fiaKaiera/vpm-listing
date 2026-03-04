@@ -27,6 +27,12 @@ namespace FiaKaiera.Door
         public override void OnPickup()
         {
             if (!IsDoorValid()) return;
+            if (doorBehaviour.IsLocked)
+            {
+                pickup.Drop();
+                pickup.pickupable = false;
+                return;
+            }
             doorBehaviour._OnDoorPickup();
         }
 

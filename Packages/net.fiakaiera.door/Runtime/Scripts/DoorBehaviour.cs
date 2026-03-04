@@ -188,6 +188,9 @@ namespace FiaKaiera.Door
 
         void _OnDoorEnabled()
         {
+            if (HandleIsValid)
+                doorHandle._SetDoorBehaviour(this);
+            
             // Lock if locked
             if (Locked)
             {
@@ -266,8 +269,12 @@ namespace FiaKaiera.Door
             // Don't really do anything if it doesn't slide
             if (slidingMinSpeed <= 0f) return;
 
+            if (HeldValue > doorSnapClose && HeldValue < doorSnapFullOpen)
+                localReleaseSpeed *= 1/tickDeltaTime;
+            else
+                // prevent using actual local speed when it's already fully opened/closed
+                localReleaseSpeed = HeldValue < 0.5f ? -slidingMinSpeed : slidingMinSpeed;
             HeldValue = -1;
-            localReleaseSpeed *= 1/tickDeltaTime;
 			ReleaseSpeed = Mathf.Sign(localReleaseSpeed) * Mathf.Max(Mathf.Abs(localReleaseSpeed), slidingMinSpeed / doorDistance);
 			networkTickCount = 0;
 			RequestSerialization();
@@ -341,7 +348,11 @@ namespace FiaKaiera.Door
                     if (!isLoaded)
                         SoundPlay(sfxLocked);
                 }
+
+                HandleSetPickupable(!doorHandle.pickup.IsHeld);
             }
+            else
+                HandleSetPickupable(false);
         }
 
         void SetLock(bool value)
@@ -474,7 +485,6 @@ namespace FiaKaiera.Door
             float newReleaseSpeed = newValue - HeldValue;
             if (newReleaseSpeed != 0)
                 localReleaseSpeed = ExpDecay(localReleaseSpeed, newReleaseSpeed, 25, tickDeltaTime);
-            
             HeldValue = newValue;
 
             if (networkTickCount % NETWORK_TICK_COUNT == 0)
@@ -551,10 +561,17 @@ namespace FiaKaiera.Door
             {
                 // Stop when reaching closed/fully open
                 heldValueCurrent = Mathf.Clamp01(heldValueCurrent);
-                if (heldValueCurrent <= doorSnapClose)
-                    HeldStateClosed();
-                else
-                    HeldStateOpenedFully();
+                
+                // Check if it's already closed/fully open beforehand
+                // No need to update state twice!
+                if (heldValuePrev != heldValueCurrent)
+                {
+                    if (heldValueCurrent <= doorSnapClose)
+                        HeldStateClosed();
+                    else
+                        HeldStateOpenedFully();
+                }
+                
                 TickStop();
             }
 
@@ -564,7 +581,7 @@ namespace FiaKaiera.Door
         void HeldStateOpened()
         {
             colliderClosed.enabled = false;
-            SetOcclusionPortalOpen(false);
+            SetOcclusionPortalOpen(true);
             if (isLoaded)
             {
                 SoundPlay(sfxOpened);
@@ -576,7 +593,7 @@ namespace FiaKaiera.Door
         void HeldStateOpenedFully()
         {
             colliderClosed.enabled = false;
-            SetOcclusionPortalOpen(false);
+            SetOcclusionPortalOpen(true);
             if (isLoaded)
             {
                 SoundPlay(sfxOpenedFully);
@@ -588,7 +605,7 @@ namespace FiaKaiera.Door
         void HeldStateClosed()
         {
             colliderClosed.enabled = true;
-            SetOcclusionPortalOpen(true);
+            SetOcclusionPortalOpen(false);
             if (isLoaded)
             {
                 SoundPlay(sfxClosed);

@@ -42,3 +42,10 @@
 - Always close now uses sliding min speed instead of release speed (it was not pleasant when put into practice)
 - Fixed doors that always close being stuck at the full open state when left alone to fully open
 - Fixed missing opening sound reference
+
+[v1.1.4](https://github.com/fiaKaiera/vpm-listing/releases/tag/door-1.1.4)
+- Handles now immediately drop and disables if picked up when the door is intended to be locked
+- Handles being pickupable will now update alongside the door's `Locked` variable
+- Fixed doors snapping fully open when it is past being closed
+- Fixed occlusion portals' open state being inverted from door's open state
+- Fixed closed and fully open sound playing again on release when the door is already closed/fully open
