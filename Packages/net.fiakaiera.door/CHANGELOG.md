@@ -49,3 +49,8 @@
 - Fixed doors snapping fully open when it is past being closed
 - Fixed occlusion portals' open state being inverted from door's open state
 - Fixed closed and fully open sound playing again on release when the door is already closed/fully open
+
+[v1.1.5](https://github.com/fiaKaiera/vpm-listing/releases/tag/door-1.1.5)
+- Handles now immediately drop when the player holding the handle is going into `lowUpdateDistance`
+- Collider should now properly update when handle is dropped and the local player is past `farUpdateDistance`
+- Collider and door position should now update properly when forced closed/open when the local player is past `farUpdateDistance`

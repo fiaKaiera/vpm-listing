@@ -2,8 +2,8 @@
 by [fiaKaiera](https://github.com/fiaKaiera)
 
 ### <img src="https://vcc.docs.vrchat.com/images/favicon.ico" width=24> [Add to VCC / ALCOM](https://fiakaiera.github.io/vpm-listing)
-[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.4/net.fiakaiera.door-1.1.4.unitypackage) ]
-[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.4/net.fiakaiera.door-1.1.4.zip) ]
+[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.5/net.fiakaiera.door-1.1.5.unitypackage) ]
+[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.5/net.fiakaiera.door-1.1.5.zip) ]
 
 VRChat door system that acts semi-realisitically.
 <br>These doors can be locked or forced open/closed using events.

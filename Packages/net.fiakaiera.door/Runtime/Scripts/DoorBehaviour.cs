@@ -298,6 +298,7 @@ namespace FiaKaiera.Door
             if (GetCameraDistance() > farUpdateDistance)
             {
                 HeldValueSetLerpAndPosition(ReleaseSpeed < 0 ? 0 : 1);
+                colliderClosed.enabled = HeldValue < doorSnapClose;
                 TickStop();
             }
 
@@ -305,6 +306,7 @@ namespace FiaKaiera.Door
             else if (slidingMinSpeed <= 0)
             {
                 HeldValueSetLerpAndPosition(HeldValue);
+                colliderClosed.enabled = HeldValue < doorSnapClose;
 				TickStop();
             }
 
@@ -449,8 +451,22 @@ namespace FiaKaiera.Door
         {
             HandleDrop();
             localReleaseSpeed = speed;
-            heldValueCurrent = lerp;
-            HeldValueSetPosition(heldValueCurrent);
+            
+            if (GetCameraDistance() > farUpdateDistance)
+            {
+                bool isClosed = localReleaseSpeed < 0;
+                colliderClosed.enabled = isClosed;
+                heldValueCurrent = isClosed ? 0 : 1;
+                HeldValueSetPosition(heldValueCurrent);
+                if (HandleGetPickupable())
+				    HandleUpdatePosition();
+                return;
+            }
+            else
+            {
+                heldValueCurrent = lerp;
+                HeldValueSetPosition(heldValueCurrent);
+            }
             TickStart();
         }
 
@@ -658,7 +674,7 @@ namespace FiaKaiera.Door
             return doorHandle.pickup.pickupable;
         }
 
-        bool HandlePickupHeld()
+        bool HandlePickupIsHeld()
         {
             if (!HandleIsValid) return false;
             return doorHandle.pickup.IsHeld;
@@ -804,6 +820,10 @@ namespace FiaKaiera.Door
 
             float cameraDistance = GetCameraDistance();
 
+            if (HandlePickupIsHeld())
+                if (doorHandle.pickup.currentPlayer == localPlayer && GetPlayerDistance() >= lowUpdateDistance)
+                    HandleDrop();
+
             // Too far, check in a second..
             if (cameraDistance > farUpdateDistance)
             {
@@ -833,7 +853,7 @@ namespace FiaKaiera.Door
         void _OnTick()
         {
             bool isOwner = Networking.IsOwner(gameObject);
-			if (isOwner && HandlePickupHeld())
+			if (isOwner && HandlePickupIsHeld())
 				HeldValueUpdate();
             
             if (HeldValue > -1)
@@ -868,6 +888,11 @@ namespace FiaKaiera.Door
             }
 
             return distance;
+        }
+
+        protected float GetPlayerDistance()
+        {
+            return Vector3.Distance(localPlayer.GetPosition(), transform.position);
         }
 
         // Exponential decay function
