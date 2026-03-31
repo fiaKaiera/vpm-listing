@@ -52,5 +52,5 @@
 
 [v1.1.5](https://github.com/fiaKaiera/vpm-listing/releases/tag/door-1.1.5)
 - Handles now immediately drop when the player holding the handle is going into `lowUpdateDistance`
-- Collider should now properly update when handle is dropped and the local player is past `farUpdateDistance`
+- Collider should now properly update when the handle is dropped and the local player is past `farUpdateDistance`
 - Collider and door position should now update properly when forced closed/open when the local player is past `farUpdateDistance`
