@@ -2,8 +2,8 @@
 by [fiaKaiera](https://github.com/fiaKaiera)
 
 ### <img src="https://vcc.docs.vrchat.com/images/favicon.ico" width=24> [Add to VCC / ALCOM](https://fiakaiera.github.io/vpm-listing)
-[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.0/net.fiakaiera.spawnpoints-1.0.0.unitypackage) ]
-[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.0/net.fiakaiera.spawnpoints-1.0.0.zip) ]
+[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.1/net.fiakaiera.spawnpoints-1.0.1.unitypackage) ]
+[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.1/net.fiakaiera.spawnpoints-1.0.1.zip) ]
 
 [ [Changelog](https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.spawnpoints/CHANGELOG.md) ] [ [How to Install?](https://github.com/fiaKaiera/vpm-listing/wiki#how-to-install) ]
 

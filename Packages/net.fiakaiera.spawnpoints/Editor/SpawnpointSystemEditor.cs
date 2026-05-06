@@ -23,9 +23,11 @@ namespace FiaKaiera.Spawns.Editor
             listeners;
 
         GUILayoutOption expandWidth = GUILayout.ExpandWidth(true);
+        GUIStyle labelStyle = new GUIStyle();
 
         void OnEnable()
         {
+            labelStyle.normal.textColor = Color.white;
             startDelayIn = serializedObject.FindProperty("startDelayIn");
             startDelay = serializedObject.FindProperty("startDelay");
             spawnOverride = serializedObject.FindProperty("spawnOverride");
@@ -178,7 +180,7 @@ namespace FiaKaiera.Spawns.Editor
             Handles.DrawLine(position + scaleDiagonalLeft, position - scaleDiagonalLeft);
             Handles.DrawLine(position + scaleDiagonalright, position - scaleDiagonalright);
             if (label != "")
-                Handles.Label(position + Vector3.up, label);
+                Handles.Label(position + Vector3.up, label, labelStyle);
         }
 
         void DrawRadius(Transform t, float radius, string label = "")
@@ -193,7 +195,7 @@ namespace FiaKaiera.Spawns.Editor
             Handles.color = Color.white;
             Handles.DrawWireDisc(position, Vector3.up, radius);
             if (label != "")
-                Handles.Label(position + Vector3.up, label);
+                Handles.Label(position + Vector3.up, label, labelStyle);
         }
     }
 }

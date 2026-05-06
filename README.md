@@ -24,12 +24,12 @@ A collection of VRChat assets made by fiaKaiera collected into one repository.
 [ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.5/net.fiakaiera.door-1.1.5.unitypackage) ]
 [ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.5/net.fiakaiera.door-1.1.5.zip) ]
 
-- [**Unique Spawnpoints**](Packages/net.fiakaiera.spawnpoints) v1.0.0
+- [**Unique Spawnpoints**](Packages/net.fiakaiera.spawnpoints) v1.0.1
 <br>Replaces the VRChat's spawn system to one that allows unique spawnpoints
 <br>for instance owners, specific users or saving via persistence.
 <br>![](https://api.iconify.design/material-symbols-light:download-2-rounded.svg?color=%23aaa&height=24)
-[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.0/net.fiakaiera.spawnpoints-1.0.0.unitypackage) ]
-[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.0/net.fiakaiera.spawnpoints-1.0.0.zip) ]
+[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.1/net.fiakaiera.spawnpoints-1.0.1.unitypackage) ]
+[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.1/net.fiakaiera.spawnpoints-1.0.1.zip) ]
 
 - *maybe more coming soon...*
 
