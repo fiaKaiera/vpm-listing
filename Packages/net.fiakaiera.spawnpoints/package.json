@@ -1,0 +1,22 @@
+{
+  "name": "net.fiakaiera.spawnpoints",
+  "displayName": "Unique Spawnpoints",
+  "version": "1.0.0",
+  "description": "Gives players the ability to have unique spawnpoints and the ability to save positions via persistence.",
+  "vpmDependencies": {
+    "com.vrchat.worlds": "3.x"
+  },
+  "author": {
+    "name": "fiaKaiera",
+    "email": "kaiera@furria.net",
+    "url": "https://github.com/fiaKaiera/vpm-listing"
+  },
+  "changelogUrl": "https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.spawnpoints/CHANGELOG.md",
+  "documentationUrl": "https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.spawnpoints/README.md",
+  "licensesUrl": "https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.spawnpoints/LICENSE.md",
+  "legacyFolders": {},
+  "legacyFiles": {},
+  "localPath": "K:\\VRMedia\\VRC Stuff\\_Worlds\\[Kaiera] VPM Listing\\Packages\\net.fiakaiera.spawnpoints",
+  "unity": "2022.3",
+  "unityRelease": "22f1"
+}

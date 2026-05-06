@@ -1,0 +1,26 @@
+{
+    "name": "FiaKaiera.Spawnpoints.Editor",
+    "rootNamespace": "",
+    "references": [
+        "VRC.SDK3",
+        "VRC.SDK3.Editor",
+        "VRC.SDKBase",
+        "VRC.SDKBase.Editor",
+        "VRC.Udon.Editor",
+        "VRC.Udon",
+        "UdonSharp.Editor",
+        "UdonSharp.Runtime",
+        "FiaKaiera.Spawnpoints"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
