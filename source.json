@@ -25,6 +25,12 @@
                 "https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.1/net.fiakaiera.door-1.0.1.zip",
                 "https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.0/net.fiakaiera.door-1.0.0.zip"                
             ]
+        },
+        {
+            "name":"net.fiakaiera.spawnpoints",
+            "releases":[
+                "https://github.com/fiaKaiera/vpm-listing/releases/download/spawnpoints-1.0.0/net.fiakaiera.spawnpoints-1.0.0.zip"                
+            ]
         }
     ]
 }
