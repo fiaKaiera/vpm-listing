@@ -1,4 +1,4 @@
-# [Unique jsoncredits](https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.jsoncredits)
+# [JSON Credits](https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.jsoncredits)
 by [fiaKaiera](https://github.com/fiaKaiera)
 
 ### <img src="https://vcc.docs.vrchat.com/images/favicon.ico" width=24> [Add to VCC / ALCOM](https://fiakaiera.github.io/vpm-listing)
@@ -101,7 +101,7 @@ Best report them through the [Issues](https://github.com/fiaKaiera/vpm-listing/i
 
 ## Credits
 - Unique jsoncredits by [fiaKaiera](https://github.com/fiaKaiera)
-- Icon: `material-symbols:featured-play-list-rounded` from [Material Symbols](https://github.com/google/material-design-icons), fetched from [Icônes](https://icones.js.org/collection/material-symbols)
+- Icon: `material-symbols:featured-play-list-rounded` and `material-symbols:link-rounded` from [Material Symbols](https://github.com/google/material-design-icons), fetched from [Icônes](https://icones.js.org/collection/material-symbols)
 
 ## Inspiration
 The system is created first for a world called HopCat Hometown (private world) where multiple residents live in the same instance.
