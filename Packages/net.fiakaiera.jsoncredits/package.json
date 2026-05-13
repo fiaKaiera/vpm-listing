@@ -1,0 +1,22 @@
+{
+  "name": "net.fiakaiera.jsoncredits",
+  "displayName": "JSON Credits",
+  "version": "1.0.0",
+  "description": "A VRChat prefab that allocates an in-world UI list based off of a JSON file used for displaying credits.",
+  "vpmDependencies": {
+    "com.vrchat.worlds": "3.x"
+  },
+  "author": {
+    "name": "fiaKaiera",
+    "email": "kaiera@furria.net",
+    "url": "https://github.com/fiaKaiera/vpm-listing"
+  },
+  "changelogUrl": "https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.jsoncredits/CHANGELOG.md",
+  "documentationUrl": "https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.jsoncredits/README.md",
+  "licensesUrl": "https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.jsoncredits/LICENSE.md",
+  "legacyFolders": {},
+  "legacyFiles": {},
+  "localPath": "K:\\VRMedia\\VRC Stuff\\_Worlds\\[Kaiera] VPM Listing\\Packages\\net.fiakaiera.jsoncredits",
+  "unity": "2022.3",
+  "unityRelease": "22f1"
+}

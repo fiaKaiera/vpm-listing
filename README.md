@@ -17,19 +17,26 @@ A collection of VRChat assets made by fiaKaiera collected into one repository.
 
 ---
 
-- [**Real-ish Doors**](Packages/net.fiakaiera.door) v1.1.5
+- [**JSON Credits**](Packages/net.fiakaiera.jsoncredits) v1.0.0
+<br>A VRChat prefab that allocates an in-world
+<br>UI list based off of a JSON file used for displaying credits.
+<br>![](https://api.iconify.design/material-symbols-light:download-2-rounded.svg?color=%23aaa&height=24)
+[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/spawnpoints-1.0.1/net.fiakaiera.spawnpoints-1.0.1.unitypackage) ]
+[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/spawnpoints-1.0.1/net.fiakaiera.spawnpoints-1.0.1.zip) ]
+
+- <img src="https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/Runtime/Resources/MaterialSymbolsDoorOpen.png?raw=true" height=24> [**Real-ish Doors**](Packages/net.fiakaiera.door) v1.1.5
 <br>VRChat door system that acts semi-realisitically.
 <br>These doors can be locked or forced open/closed using events.
 <br>![](https://api.iconify.design/material-symbols-light:download-2-rounded.svg?color=%23aaa&height=24)
 [ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.5/net.fiakaiera.door-1.1.5.unitypackage) ]
 [ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.1.5/net.fiakaiera.door-1.1.5.zip) ]
 
-- [**Unique Spawnpoints**](Packages/net.fiakaiera.spawnpoints) v1.0.1
+- <img src="https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.spawnpoints/Runtime/Resources/MaterialSymbolsLightLocationOn.png?raw=true" height=24> [**Unique Spawnpoints**](Packages/net.fiakaiera.spawnpoints) v1.0.1
 <br>Replaces the VRChat's spawn system to one that allows unique spawnpoints
 <br>for instance owners, specific users or saving via persistence.
 <br>![](https://api.iconify.design/material-symbols-light:download-2-rounded.svg?color=%23aaa&height=24)
-[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.1/net.fiakaiera.spawnpoints-1.0.1.unitypackage) ]
-[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/door-1.0.1/net.fiakaiera.spawnpoints-1.0.1.zip) ]
+[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/spawnpoints-1.0.1/net.fiakaiera.spawnpoints-1.0.1.unitypackage) ]
+[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/spawnpoints-1.0.1/net.fiakaiera.spawnpoints-1.0.1.zip) ]
 
 - *maybe more coming soon...*
 

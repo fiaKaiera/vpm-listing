@@ -1,0 +1,48 @@
+{
+    "Authors" :
+    [
+        "Placeholder Text",
+        "---",
+        [
+            "World Author",
+            "World Role",
+            "URL"
+        ],
+        [
+            "World Author",
+            "World Role",
+            "URL"
+        ]
+    ],
+
+    "Assets" :
+    [
+        "Placeholder Text",
+        "---",
+        [
+            "Asset Name",
+            "Asset Author",
+            "URL"
+        ],
+        [
+            "Asset Name",
+            "Multi-line Example (1)",
+            "Multi-line Example (2)",
+            "URL"
+        ],
+        [
+            "No URL Example",
+            "Asset Author",
+            ""
+        ],
+        [
+            "One-line Example"
+        ],
+        "---",
+        [
+            "JSON Credits",
+            "fiaKaiera",
+            "https://github.com/fiaKaiera/vpm-listing"
+        ]
+    ]
+}

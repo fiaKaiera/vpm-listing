@@ -231,6 +231,12 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "net.fiakaiera.jsoncredits": {
+      "version": "file:net.fiakaiera.jsoncredits",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "net.fiakaiera.spawnpoints": {
       "version": "file:net.fiakaiera.spawnpoints",
       "depth": 0,

@@ -32,6 +32,12 @@
                 "https://github.com/fiaKaiera/vpm-listing/releases/download/spawnpoints-1.0.1/net.fiakaiera.spawnpoints-1.0.1.zip",
                 "https://github.com/fiaKaiera/vpm-listing/releases/download/spawnpoints-1.0.0/net.fiakaiera.spawnpoints-1.0.0.zip"                
             ]
+        },
+        {
+            "name":"net.fiakaiera.jsoncredits",
+            "releases":[
+                "https://github.com/fiaKaiera/vpm-listing/releases/download/jsoncredits-1.0.0/net.fiakaiera.jsoncredits-1.0.0.zip"                
+            ]
         }
     ]
 }
