@@ -3,3 +3,6 @@
 
 [v1.0.1](https://github.com/fiaKaiera/vpm-listing/releases/tag/spawnpoints-1.0.1)
 - Forced the label text on specified spawnpoints to be always white
+
+[v1.0.2](https://github.com/fiaKaiera/vpm-listing/releases/tag/spawnpoints-1.0.2)
+- Changed the user spawns info text to a proper help box

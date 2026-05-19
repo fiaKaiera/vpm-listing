@@ -83,8 +83,8 @@ namespace FiaKaiera.Spawns.Editor
                 EditorGUILayout.PropertyField(ownerSpawnBehaviour);
 
             EditorGUILayout.PropertyField(childrenAsUserSpawns);
-            GUILayout.Label(SpawnpointSystem.USER_SPAWNPOINT_NOTICE, GUI.skin.box, expandWidth);
             EditorGUILayout.PropertyField(assignedUserSpawns);
+            EditorGUILayout.HelpBox(SpawnpointSystem.USER_SPAWNPOINT_NOTICE, MessageType.Info);
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);

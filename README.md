@@ -21,8 +21,8 @@ A collection of VRChat assets made by fiaKaiera collected into one repository.
 <br>A VRChat prefab that allocates an in-world
 <br>UI list based off of a JSON file used for displaying credits.
 <br>![](https://api.iconify.design/material-symbols-light:download-2-rounded.svg?color=%23aaa&height=24)
-[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/spawnpoints-1.0.1/net.fiakaiera.spawnpoints-1.0.1.unitypackage) ]
-[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/spawnpoints-1.0.1/net.fiakaiera.spawnpoints-1.0.1.zip) ]
+[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/jsoncredits-1.0.0/net.fiakaiera.jsoncredits-1.0.0.unitypackage) ]
+[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/jsoncredits-1.0.0/net.fiakaiera.jsoncredits-1.0.0.zip) ]
 
 - <img src="https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.door/Runtime/Resources/MaterialSymbolsDoorOpen.png?raw=true" height=24> [**Real-ish Doors**](Packages/net.fiakaiera.door) v1.1.5
 <br>VRChat door system that acts semi-realisitically.
@@ -35,8 +35,8 @@ A collection of VRChat assets made by fiaKaiera collected into one repository.
 <br>Replaces the VRChat's spawn system to one that allows unique spawnpoints
 <br>for instance owners, specific users or saving via persistence.
 <br>![](https://api.iconify.design/material-symbols-light:download-2-rounded.svg?color=%23aaa&height=24)
-[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/spawnpoints-1.0.1/net.fiakaiera.spawnpoints-1.0.1.unitypackage) ]
-[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/spawnpoints-1.0.1/net.fiakaiera.spawnpoints-1.0.1.zip) ]
+[ [*.unitypackage](https://github.com/fiaKaiera/vpm-listing/releases/download/spawnpoints-1.0.2/net.fiakaiera.spawnpoints-1.0.2.unitypackage) ]
+[ [*.zip](https://github.com/fiaKaiera/vpm-listing/releases/download/spawnpoints-1.0.2/net.fiakaiera.spawnpoints-1.0.2.zip) ]
 
 - *maybe more coming soon...*
 

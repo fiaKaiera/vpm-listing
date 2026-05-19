@@ -22,7 +22,7 @@ namespace FiaKaiera.Spawns
     {
 #if UNITY_2021_2_OR_NEWER && UNITY_EDITOR
         const string ICON_PATH = "Packages/net.fiakaiera.spawns/Runtime/Resources/MaterialSymbolsLightLocationOn.png";
-        public const string USER_SPAWNPOINT_NOTICE = "Note: For clarity, user spawns uses the\nplayer's *display name* on the object's name.";
+        public const string USER_SPAWNPOINT_NOTICE = "Note: For clarity, user spawns use the\nplayer's *display name* as the object's name.";
 #endif
 
         const string EVENT_FIRST_SPAWN = "OnLocalFirstSpawn";
