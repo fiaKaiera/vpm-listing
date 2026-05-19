@@ -17,7 +17,7 @@ A collection of VRChat assets made by fiaKaiera collected into one repository.
 
 ---
 
-- [**JSON Credits**](Packages/net.fiakaiera.jsoncredits) v1.0.0
+- <img src="https://github.com/fiaKaiera/vpm-listing/blob/main/Packages/net.fiakaiera.jsoncredits/Runtime/Resources/MaterialSymbolsFeaturedPlayListRounded.png?raw=true" height=24> [**JSON Credits**](Packages/net.fiakaiera.jsoncredits) v1.0.0
 <br>A VRChat prefab that allocates an in-world
 <br>UI list based off of a JSON file used for displaying credits.
 <br>![](https://api.iconify.design/material-symbols-light:download-2-rounded.svg?color=%23aaa&height=24)
